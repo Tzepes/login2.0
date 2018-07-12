@@ -40,7 +40,7 @@ var counter=0;
         var email = $("input#email").val();
 
         $("#submit").one('click', function(){
-            if($("input#fname").val() == 0 && $("input#lname").val() == 0 && $("input#email").val() == 0){    
+            if($("input#fname").val() == 0 || $("input#lname").val() == 0 || $("input#email").val() == 0){    
                 $("input").css("border-color", "red");
                     
                 
