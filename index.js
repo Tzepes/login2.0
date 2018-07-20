@@ -4,9 +4,6 @@
  
 // script.src = 'https://code.jquery.com/jquery-3.3.1.js';
 // document.getElementsByTagName('head')[0].appendChild(script); 
-
-var users = [];
-
 // $(document).ready(function(){
 
     //Input bar effects
@@ -27,6 +24,14 @@ var users = [];
         the form
      */
 
+    const localStorageUsers = localStorage.getItem('users');
+    const users = JSON.parse(localStorageUsers);
+    // users is an array, iterate over it
+    for (const user in users) {
+        console.log('name', user.fname);
+        // etc
+        }
+
     //the function bellow contains the code for submiting the user input and storing it in the local storage 
     $("#loginForm").submit(function (event) {
         event.preventDefault(); //prevents page refresh after button press
@@ -36,12 +41,14 @@ var users = [];
         var lname = $("input#lname").val();
         var email = $("input#email").val();
         
-
+        // every user is stored in this object
         userObj = {
             firstname: fname,
             lastname:lname,
             email:email
         }
+
+        // obj = JSON.parse(userObj);
 
         //the function bellow checks if the user missed any parameters 
         $("#submit").one('click', function(){
@@ -61,25 +68,25 @@ var users = [];
 
 
         // takes every input vaule and pushes it into an array called users[]
-       users.push(userObj);
+       // users.push(userObj);
         
         
 
         //sets every input value to local storage, mentions what value to take and it gives it a name
-        localStorage.setItem("user", userObj);
+        // localStorage.setItem("users", JSON.stringify(userObj));
 
         // vars for every value from the local storage, used for calling them later
-        var firstnameS = localStorage.getItem('user'),
-            lastnameS = localStorage.getItem('user'),
-            emailS = localStorage.getItem('user');
+        // var firstnameS = localStorage.getItem('users'),
+        //     lastnameS = localStorage.getItem('users'),
+        //     emailS = localStorage.getItem('users');
 
         //shows all users from the local storage inside a table below the login form
         if($("input#fname").val() != 0 && $("input#lname").val() != 0 && $("input#email").val() != 0){
            $("table#loginInfo").append(
                     "<tr>" +
-                       "<th>" + firstnameS + "</th>" + 
-                       "<th>" + lastnameS + "</th>" +
-                       "<th>" + emailS + "</th>" +  
+                       "<th>" + userObj.firstname + "</th>" + 
+                       "<th>" + userObj.lastname + "</th>" +
+                       "<th>" + userObj.email + "</th>" +  
                     "</tr>"
                     );
             $("input").val(""); 
